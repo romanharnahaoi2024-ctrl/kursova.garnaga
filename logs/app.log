@@ -1,0 +1,37 @@
+2026-05-30 16:55:12,561 [JavaFX Application Thread] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:uitest_e0ecc2b0-1a79-40ac-8734-6915ef1c2401?mode=memory&cache=shared
+2026-05-30 16:55:14,995 [JavaFX Application Thread] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:uitest_21fa0bb0-dc1c-4cd7-b37d-a0a693707925?mode=memory&cache=shared
+2026-05-30 16:55:15,924 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_3be1c022-26b7-4a95-a18f-1dde54b0e6be?mode=memory&cache=shared
+2026-05-30 16:55:15,931 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_2e2f1244-6432-4abb-98e8-8e3b649bb5cc?mode=memory&cache=shared
+2026-05-30 16:55:15,936 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_49b3ad77-ded7-42e0-a17e-c8f4c6393edf?mode=memory&cache=shared
+2026-05-30 16:55:15,940 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_5cf07c20-5d60-4964-ada5-e87b3a199d57?mode=memory&cache=shared
+2026-05-30 16:55:15,946 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_b27e7827-6cb4-407f-9f6b-4953bcc9c308?mode=memory&cache=shared
+2026-05-30 16:55:15,948 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_1eafdaf3-9166-4ecd-99f7-689cf5908688?mode=memory&cache=shared
+2026-05-30 16:55:15,958 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_d4163ec8-2742-4337-814f-842e20ccdad5?mode=memory&cache=shared
+2026-05-30 16:55:15,961 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_a5714d4c-3d18-4ffe-90c2-b9929beb4134?mode=memory&cache=shared
+2026-05-30 16:55:15,963 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_d89b58d0-2f42-4229-94df-0d89996757e6?mode=memory&cache=shared
+2026-05-30 16:55:15,966 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_80980a61-ac85-47c4-b52b-c0fbf8cacaf4?mode=memory&cache=shared
+2026-05-30 16:55:15,967 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_371ba1e3-c8be-48a2-b4d8-378d4bcc4cfb?mode=memory&cache=shared
+2026-05-30 16:55:15,969 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_1db785c5-a525-437e-a6e2-9690205af028?mode=memory&cache=shared
+2026-05-30 16:56:15,362 [JavaFX Application Thread] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:uitest_cdfa4375-1367-4250-921a-d8d22e371797?mode=memory&cache=shared
+2026-05-30 16:56:17,678 [JavaFX Application Thread] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:uitest_9645abb7-55e5-42b7-bb51-b631e6ffdaf6?mode=memory&cache=shared
+2026-05-30 16:56:18,604 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_0d12c778-5f90-493d-85be-a7c16004f6c2?mode=memory&cache=shared
+2026-05-30 16:56:18,615 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_08903958-b166-4ace-9e86-4e69a6e06398?mode=memory&cache=shared
+2026-05-30 16:56:18,621 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_fc3b2436-ab45-4136-a4e3-0608cbd435c3?mode=memory&cache=shared
+2026-05-30 16:56:18,624 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_622e4213-9ac8-4ab7-81f9-2dd504d743f0?mode=memory&cache=shared
+2026-05-30 16:56:18,631 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_8815366e-d140-4345-98e1-1984ac376092?mode=memory&cache=shared
+2026-05-30 16:56:18,633 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:testdb_fdff8378-2d3e-4b7a-959e-7c57ea48e5fe?mode=memory&cache=shared
+2026-05-30 16:56:18,645 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_92a4a2f2-f06f-49ea-9950-62ec9202a4f9?mode=memory&cache=shared
+2026-05-30 16:56:18,648 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_8dd64536-8da0-420f-a0f4-b16fa53672d6?mode=memory&cache=shared
+2026-05-30 16:56:18,651 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_1c22fe85-eaec-4894-b90a-3f62e2dc79e8?mode=memory&cache=shared
+2026-05-30 16:56:18,653 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_cda7f2d5-7fcd-4230-8269-acaf534aa26c?mode=memory&cache=shared
+2026-05-30 16:56:18,655 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_aa99e844-bf6b-4b2b-9410-da37106169fc?mode=memory&cache=shared
+2026-05-30 16:56:18,656 [main] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:file:svctest_3ecc00f8-0a71-4783-a396-510d9de61358?mode=memory&cache=shared
+2026-05-30 16:57:14,901 [main] INFO  travelapp.Application - Bootstrap main method called
+2026-05-30 16:57:14,903 [JavaFX-Launcher] INFO  travelapp.Application - Initializing database connection...
+2026-05-30 16:57:15,248 [JavaFX-Launcher] INFO  travelapp.storage.DatabaseManager - Database initialized successfully at: jdbc:sqlite:data/travel.db
+2026-05-30 16:57:15,259 [JavaFX-Launcher] INFO  travelapp.Application - Database loaded and initialized successfully.
+2026-05-30 16:57:15,266 [JavaFX Application Thread] INFO  travelapp.Application - Starting JavaFX Main UI...
+2026-05-30 16:57:15,619 [JavaFX Application Thread] INFO  travelapp.Application - UI displayed successfully.
+2026-05-30 16:59:26,228 [JavaFX Application Thread] INFO  travelapp.ui.MainWindow - Ініційовано бронювання туру ID: 3, Назва: Вікенд у Парижі
+2026-05-30 17:01:19,611 [JavaFX Application Thread] INFO  travelapp.Application - User requested application shutdown.
+2026-05-30 17:01:19,612 [JavaFX Application Thread] INFO  travelapp.Application - Application successfully stopped.

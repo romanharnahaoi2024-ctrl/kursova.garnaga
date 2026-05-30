@@ -1,0 +1,210 @@
+/* Modern & Premium Stylesheet for TravelApp */
+
+.root {
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #f4f6f9;
+    -fx-text-fill: #2d3748;
+}
+
+/* Header styling */
+.header-panel {
+    -fx-background-color: linear-gradient(to right, #4f46e5, #06b6d4);
+    -fx-padding: 15px 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);
+}
+
+.header-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #e0e7ff;
+}
+
+/* TabPane Styling */
+.tab-pane {
+    -fx-tab-min-width: 140px;
+    -fx-tab-max-width: 200px;
+    -fx-tab-min-height: 40px;
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area {
+    -fx-background-color: #ffffff;
+    -fx-padding: 0 10px 0 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 2);
+}
+
+.tab {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0 20px;
+}
+
+.tab:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+.tab:selected {
+    -fx-background-color: transparent;
+    -fx-border-color: #4f46e5;
+    -fx-border-width: 0 0 3px 0;
+}
+
+.tab .tab-label {
+    -fx-text-fill: #64748b;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #4f46e5;
+}
+
+/* Sidebar / Form Panel */
+.sidebar {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.form-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+    -fx-padding: 0 0 15px 0;
+}
+
+/* Input elements */
+.text-field, .combo-box, .date-picker {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 10px;
+    -fx-text-fill: #334155;
+    -fx-prompt-text-fill: #94a3b8;
+}
+
+.text-field:focused, .combo-box:focused, .date-picker:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4f46e5;
+    -fx-effect: dropshadow(three-pass-box, rgba(79, 70, 229, 0.15), 5, 0, 0, 0);
+}
+
+/* Labels */
+.form-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+    -fx-padding: 5px 0 2px 0;
+}
+
+/* Buttons */
+.button {
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+.btn-primary {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #4338ca;
+}
+
+.btn-success {
+    -fx-background-color: #10b981;
+    -fx-text-fill: white;
+}
+
+.btn-success:hover {
+    -fx-background-color: #059669;
+}
+
+.btn-secondary {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #475569;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #cbd5e1;
+}
+
+.btn-danger {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #dc2626;
+}
+
+/* TableView design */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f1f5f9;
+    -fx-background-insets: 0;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+}
+
+.table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #f1f5f9 transparent;
+    -fx-cell-size: 38px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8fafc;
+}
+
+.table-row-cell:filled:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #e0e7ff;
+    -fx-text-fill: #1e1b4b;
+}
+
+/* Dialog Box */
+.dialog-pane {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #4f46e5;
+    -fx-padding: 15px;
+}
+
+/* Border styling for content areas */
+.content-area {
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+}
