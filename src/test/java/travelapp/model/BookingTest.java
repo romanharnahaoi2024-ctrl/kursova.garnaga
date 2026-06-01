@@ -1,7 +1,6 @@
 package travelapp.model;
 
 import org.junit.jupiter.api.Test;
-import travelapp.Booking;
 
 import java.time.LocalDate;
 

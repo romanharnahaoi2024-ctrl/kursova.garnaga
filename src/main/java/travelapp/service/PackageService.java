@@ -1,26 +1,41 @@
 package travelapp.service;
 
-import travelapp.Booking;
-import travelapp.MealPlan;
-import travelapp.Transport;
-import travelapp.TravelPackage;
-import travelapp.storage.PackageRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import travelapp.model.*;
+import travelapp.repository.BookingRepository;
+import travelapp.repository.PackageRepository;
 
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
+@Transactional
 public class PackageService {
-    private final PackageRepository repo;
+    private final PackageRepository packageRepository;
+    private final BookingRepository bookingRepository;
 
-    public PackageService(PackageRepository repo) { this.repo = repo; }
+    public PackageService(PackageRepository packageRepository, BookingRepository bookingRepository) {
+        this.packageRepository = packageRepository;
+        this.bookingRepository = bookingRepository;
+    }
 
-    public void load() throws Exception { repo.load(); }
-    public void save() throws Exception { repo.save(); }
-    public List<TravelPackage> getAll() { return repo.listPackages(); }
+    public void load() throws Exception {
+        // No-op: Spring Boot context handles schema creation and database seeding automatically
+    }
+
+    public void save() throws Exception {
+        packageRepository.flush();
+        bookingRepository.flush();
+    }
+
+    public List<TravelPackage> getAll() {
+        return packageRepository.findAll();
+    }
 
     public List<TravelPackage> filter(String type, Transport tr, MealPlan meal, double minPrice, double maxPrice) {
-        return repo.listPackages().stream()
+        return packageRepository.findAll().stream()
                 .filter(p -> type == null || type.isBlank() || p.getType().equalsIgnoreCase(type))
                 .filter(p -> tr == null || p.getTransport() == tr)
                 .filter(p -> meal == null || p.getMealPlan() == meal)
@@ -36,31 +51,33 @@ public class PackageService {
             case "rating" -> Comparator.comparingDouble(TravelPackage::getRating);
             default -> Comparator.comparing(TravelPackage::getName);
         };
-        return repo.listPackages().stream().sorted(c).collect(Collectors.toList());
+        return packageRepository.findAll().stream().sorted(c).collect(Collectors.toList());
     }
+
     public Booking book(int pkgId, String name, String contact, LocalDate start, LocalDate end, int seats) {
-        TravelPackage pkg = repo.findPackageById(pkgId)
+        TravelPackage pkg = packageRepository.findById(pkgId)
                 .orElseThrow(() -> new IllegalArgumentException("Пакет не знайдено"));
+        
         if (pkg.getAvailableSeats() < seats)
             throw new IllegalArgumentException("Недостатньо місць");
 
-        // Поліморфний розрахунок вартості залежно від підтипу путівки
         double total = pkg.calculateFinalPrice(seats);
         pkg.setAvailableSeats(pkg.getAvailableSeats() - seats);
 
-        // id=0 → SQLite сам призначить AUTOINCREMENT id і встановить його в об'єкт через RETURN_GENERATED_KEYS
         Booking b = new Booking(0, pkgId, name, contact, start, end, seats, total);
-        repo.addBooking(b);
-        repo.updatePackage(pkg);
-        return b;
+        
+        // Save using standard JPA repository methods
+        Booking savedBooking = bookingRepository.save(b);
+        packageRepository.save(pkg);
+        
+        return savedBooking;
     }
 
-
     public void saveOrUpdate(TravelPackage pkg) {
-        repo.updatePackage(pkg);
+        packageRepository.save(pkg);
     }
 
     public void delete(int id) {
-        repo.deletePackage(id);
+        packageRepository.deleteById(id);
     }
 }

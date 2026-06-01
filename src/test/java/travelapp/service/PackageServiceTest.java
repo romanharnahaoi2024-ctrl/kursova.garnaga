@@ -1,50 +1,42 @@
 package travelapp.service;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import travelapp.*;
-import travelapp.storage.DatabaseManager;
-import travelapp.storage.PackageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import travelapp.model.*;
+import travelapp.repository.BookingRepository;
+import travelapp.repository.PackageRepository;
 
-import java.sql.Connection;
-import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest(properties = {
+    "spring.datasource.url=jdbc:sqlite::memory:",
+    "spring.jpa.hibernate.ddl-auto=update"
+})
 class PackageServiceTest {
 
-    private DatabaseManager dbManager;
+    @Autowired
     private PackageRepository repo;
+
+    @Autowired
+    private BookingRepository bookingRepo;
+
+    @Autowired
     private PackageService service;
 
     @BeforeEach
     void setup() throws Exception {
-        // Унікальне ім'я in-memory БД для кожного тесту — ізоляція між тестами
-        String uniqueDb = "jdbc:sqlite:file:svctest_" + UUID.randomUUID() + "?mode=memory&cache=shared";
-        dbManager = new DatabaseManager(uniqueDb);
-        repo = new PackageRepository(dbManager);
-        repo.load(); // Ініціалізує схему та виконує seed
+        // Clear tables to have full control over the database content
+        bookingRepo.deleteAll();
+        repo.deleteAll();
 
-        // Очищаємо seed-дані щоб тест мав повний контроль над вмістом БД
-        clearAll();
-        service = new PackageService(repo);
-
-        // Тестовий тур: RecreationPackage (Sea), hotelStars=4
-        // calculateFinalPrice(seats) = (500 + 4*5) * seats = 520 * seats
-        repo.updatePackage(new RecreationPackage(
-                1, "Turkey", "Sea", 7, 500,
-                Transport.PLANE, MealPlan.AI, 20, 4.5, 4
-        ));
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (dbManager != null) {
-            dbManager.close();
-        }
+        // Test package: RecreationPackage (Sea), hotelStars=4
+        repo.save(new RecreationPackage(
+                0, "Turkey", "Sea", 7, 500,
+                Transport.PLANE, MealPlan.AI, 20, 4.5, 4));
     }
 
     @Test
@@ -55,10 +47,9 @@ class PackageServiceTest {
 
     @Test
     void testSortByPrice() {
-        repo.updatePackage(new RecreationPackage(
-                2, "Egypt", "Sea", 10, 300,
-                Transport.PLANE, MealPlan.AI, 20, 4.7, 3
-        ));
+        repo.save(new RecreationPackage(
+                0, "Egypt", "Sea", 10, 300,
+                Transport.PLANE, MealPlan.AI, 20, 4.7, 3));
 
         var sorted = service.sortBy("price");
         assertEquals(300, sorted.get(0).getBasePrice());
@@ -66,34 +57,30 @@ class PackageServiceTest {
 
     @Test
     void testBookSuccess() {
+        int pkgId = repo.findAll().get(0).getId();
         Booking b = service.book(
-                1, "Roman", "111",
+                pkgId, "Roman", "111",
                 LocalDate.now(), LocalDate.now().plusDays(7),
-                2
-        );
+                2);
 
         // RecreationPackage: (500 + 4*5) * 2 = 520 * 2 = 1040
         assertEquals(1040.0, b.getTotalPrice(), 0.001);
-        assertEquals(18, repo.findPackageById(1).get().getAvailableSeats());
-        assertEquals(1, repo.listBookings().size());
-        // Перевіряємо, що SQLite встановив автоінкрементний id
+        assertEquals(18, repo.findById(pkgId).get().getAvailableSeats());
+        assertEquals(1, bookingRepo.count());
         assertTrue(b.getId() > 0, "ID бронювання має бути > 0 після збереження");
     }
 
     @Test
     void testBookFailsIfNotEnoughSeats() {
-        assertThrows(IllegalArgumentException.class, () ->
-                service.book(1, "Test", "000",
-                        LocalDate.now(), LocalDate.now(), 999)
-        );
+        int pkgId = repo.findAll().get(0).getId();
+        assertThrows(IllegalArgumentException.class, () -> service.book(pkgId, "Test", "000",
+                LocalDate.now(), LocalDate.now(), 999));
     }
 
     @Test
     void testBookFailsIfPackageNotFound() {
-        assertThrows(IllegalArgumentException.class, () ->
-                service.book(999, "Test", "000",
-                        LocalDate.now(), LocalDate.now(), 2)
-        );
+        assertThrows(IllegalArgumentException.class, () -> service.book(9999, "Test", "000",
+                LocalDate.now(), LocalDate.now(), 2));
     }
 
     @Test
@@ -101,25 +88,14 @@ class PackageServiceTest {
         // Create new
         TravelPackage newPkg = new RecreationPackage(
                 0, "New Tour", "Sea", 5, 200,
-                Transport.BUS, MealPlan.BB, 10, 4.0, 3
-        );
+                Transport.BUS, MealPlan.BB, 10, 4.0, 3);
         service.saveOrUpdate(newPkg);
-        assertEquals(2, repo.listPackages().size());
+        assertEquals(2, repo.count());
 
         // Update existing
-        TravelPackage existingPkg = repo.findPackageById(1).get();
+        TravelPackage existingPkg = repo.findAll().get(0);
         existingPkg.setDescription("Updated Turkey");
         service.saveOrUpdate(existingPkg);
-        assertEquals("Updated Turkey", repo.findPackageById(1).get().getDescription());
-    }
-
-    private void clearAll() {
-        try (Connection conn = dbManager.getConnection();
-             Statement stmt = conn.createStatement()) {
-            stmt.execute("DELETE FROM bookings");
-            stmt.execute("DELETE FROM travel_packages");
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to clear tables", e);
-        }
+        assertEquals("Updated Turkey", repo.findById(existingPkg.getId()).get().getDescription());
     }
 }

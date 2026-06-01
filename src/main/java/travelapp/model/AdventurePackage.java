@@ -1,8 +1,19 @@
-package travelapp;
+package travelapp.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@DiscriminatorValue("adventure")
 public class AdventurePackage extends TravelPackage {
+
+    @Column(name = "difficulty_level")
     private String difficultyLevel;
+
+    @Column(name = "insurance_premium")
     private double insurancePremium;
+
+    // Default constructor for JPA
+    protected AdventurePackage() {}
 
     public AdventurePackage(int id, String name, String type, int durationDays, double basePrice,
                             Transport transport, MealPlan mealPlan, int availableSeats, double rating,
@@ -38,7 +49,6 @@ public class AdventurePackage extends TravelPackage {
 
     @Override
     public double calculateFinalPrice(int seats) {
-        // Базова ціна + страхування активного відпочинку за кожне місце
         return (getBasePrice() + insurancePremium) * seats;
     }
 }

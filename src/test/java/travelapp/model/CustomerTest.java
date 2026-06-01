@@ -1,7 +1,6 @@
 package travelapp.model;
 
 import org.junit.jupiter.api.Test;
-import travelapp.Customer;
 
 import static org.junit.jupiter.api.Assertions.*;
 

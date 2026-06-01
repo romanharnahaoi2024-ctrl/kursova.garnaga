@@ -2,8 +2,10 @@ package travelapp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 import travelapp.service.PackageService;
-import travelapp.storage.PackageRepository;
 import travelapp.ui.MainWindow;
 
 import javafx.application.Platform;
@@ -11,9 +13,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+@SpringBootApplication
 public class Application extends javafx.application.Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
+    private ConfigurableApplicationContext springContext;
     private PackageService service;
 
     @Override
@@ -24,11 +28,10 @@ public class Application extends javafx.application.Application {
             Platform.runLater(() -> showCriticalError(throwable));
         });
 
-        logger.info("Initializing database connection...");
-        PackageRepository repo = new PackageRepository("data/packages.csv", "data/bookings.csv");
-        service = new PackageService(repo);
-        service.load();
-        logger.info("Database loaded and initialized successfully.");
+        logger.info("Initializing Spring Boot application context...");
+        springContext = new SpringApplicationBuilder(Application.class).run();
+        service = springContext.getBean(PackageService.class);
+        logger.info("Spring Boot and Database loaded successfully.");
     }
 
     @Override
@@ -58,7 +61,6 @@ public class Application extends javafx.application.Application {
                 } catch (Exception e) {
                     logger.error("Failed to save data on close", e);
                 }
-                logger.info("Application successfully stopped.");
             });
 
             primaryStage.show();
@@ -67,6 +69,15 @@ public class Application extends javafx.application.Application {
             logger.error("Failed to launch GUI", e);
             showCriticalError(e);
         }
+    }
+
+    @Override
+    public void stop() throws Exception {
+        logger.info("Stopping Spring Boot application context...");
+        if (springContext != null) {
+            springContext.close();
+        }
+        logger.info("Application successfully stopped.");
     }
 
     /** Показує діалог з повідомленням про критичну помилку. */

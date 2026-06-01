@@ -6,9 +6,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 import travelapp.service.PackageService;
-import travelapp.storage.DatabaseManager;
-import travelapp.storage.PackageRepository;
 
 import java.util.UUID;
 
@@ -17,17 +17,23 @@ import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 public class MainWindowTest extends ApplicationTest {
 
-    private DatabaseManager dbManager;
+    private ConfigurableApplicationContext springContext;
     private PackageService service;
     private MainWindow mainWindow;
 
     @Override
     public void start(Stage stage) throws Exception {
+        // Create unique in-memory SQLite DB for test isolation
         String uniqueDb = "jdbc:sqlite:file:uitest_" + UUID.randomUUID() + "?mode=memory&cache=shared";
-        dbManager = new DatabaseManager(uniqueDb);
-        PackageRepository repo = new PackageRepository(dbManager);
-        repo.load();
-        service = new PackageService(repo);
+        
+        springContext = new SpringApplicationBuilder(travelapp.Application.class)
+                .properties(
+                        "spring.datasource.url=" + uniqueDb,
+                        "spring.jpa.hibernate.ddl-auto=update"
+                )
+                .run();
+        
+        service = springContext.getBean(PackageService.class);
 
         mainWindow = new MainWindow(service);
         Scene scene = new Scene(mainWindow, 1000, 680);
@@ -38,8 +44,8 @@ public class MainWindowTest extends ApplicationTest {
     @AfterEach
     public void tearDownDb() throws Exception {
         FxToolkit.hideStage();
-        if (dbManager != null) {
-            dbManager.close();
+        if (springContext != null) {
+            springContext.close();
         }
     }
 

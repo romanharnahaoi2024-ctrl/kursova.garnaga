@@ -1,7 +1,16 @@
-package travelapp;
+package travelapp.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@DiscriminatorValue("recreation")
 public class RecreationPackage extends TravelPackage {
+
+    @Column(name = "hotel_stars")
     private int hotelStars;
+
+    // Default constructor for JPA
+    protected RecreationPackage() {}
 
     public RecreationPackage(int id, String name, String type, int durationDays, double basePrice,
                              Transport transport, MealPlan mealPlan, int availableSeats, double rating,
@@ -27,7 +36,6 @@ public class RecreationPackage extends TravelPackage {
 
     @Override
     public double calculateFinalPrice(int seats) {
-        // Базова ціна + курортний збір залежно від зірковості готелю ($5 за зірку) за кожне місце
         return (getBasePrice() + hotelStars * 5.0) * seats;
     }
 }

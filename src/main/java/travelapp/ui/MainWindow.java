@@ -2,7 +2,7 @@ package travelapp.ui;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import travelapp.*;
+import travelapp.model.*;
 import travelapp.service.PackageService;
 
 import javafx.beans.property.*;
